@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function RenderDish ({dish}) {
     if(dish) {
@@ -28,7 +29,7 @@ function RenderComments ({comments}) {
                 <h4>Comments</h4>
                 <ul>
                     {
-                        comments.comments.map((comment) => {
+                        comments.map((comment) => {
                             return (
                                 <li key={comment.id} className="list-unstyled">
                                     <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
@@ -51,8 +52,18 @@ const DishDetail = (props) => {
     return (
         <div className="container">
             <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>Menu</h3>
+                    <hr />
+                </div>
+            </div>
+            <div className="row">
                 <RenderDish dish={props.dish}/>
-                <RenderComments comments={props.dish}/>
+                <RenderComments comments={props.comments}/>
             </div>
         </div>
     );
