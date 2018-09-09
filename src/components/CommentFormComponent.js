@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, ModalHeader, ModalBody, Row, Label, Col} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Row, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
@@ -19,6 +19,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         console.log(values);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     toggleModal() {
@@ -50,9 +51,9 @@ class CommentForm extends Component {
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="name">Your Name</Label>
-                                    <Control.text model=".name"
-                                                  id="name"
-                                                  name="name"
+                                    <Control.text model=".author"
+                                                  id="author"
+                                                  name="author"
                                                   placeholder="You Name"
                                                   className="form-control"
                                                   validators={{
